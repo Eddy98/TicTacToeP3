@@ -108,8 +108,13 @@ public class TTTDriver {
 			int row = 0, col = 0;
 			System.out.println();
 			System.out.println(game.getGameDisplay());
-			System.out.print("Your turn " + game.getPlayer(turn).getUsername() + "! \nHurry up! You have " + t + " seconds!\n\nEnter row number of mark (starting at 0): ");
-			try {			
+			System.out.print("Your turn " + game.getPlayer(turn).getUsername() + "!");
+			if(t > 0 )
+				System.out.println("\nHurry up! You have " + t + " seconds!");		
+			System.out.println("\nEnter row number of mark (starting at 0): ");		
+					
+			try {		
+				//start timer, if the user does not answer in given timeout, then terminate program 
 				game.startTime();
 				
 				//get user input for row number			
@@ -139,7 +144,7 @@ public class TTTDriver {
 				}
 				col = Integer.parseInt(idk);  //cast string to int
 				
-				
+				//cancel timer
 				game.endTime();
 				//make selection, if it not valid, then repeat iteration
 				if (!game.setSelection(row, col, game.getPlayer(turn).getPlayerNum())) {

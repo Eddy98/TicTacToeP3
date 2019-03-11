@@ -32,7 +32,11 @@ public class TTTControllerImpl implements TTTControllerInterface {
 		
 		this.board = new TwoDArray(3, 3, " ");
 		this.numPlayers = numPlayers;
-		this.timeout = timeoutInSecs;   //NEED TO DO THIS
+		if(timeoutInSecs >0)
+			this.timeout = timeoutInSecs;  
+		else {
+			this.timeout = 1000;
+		}
 		this.playerCount = 0;
 		this.moveCount = 0;
 		this.timer = new Timer();
