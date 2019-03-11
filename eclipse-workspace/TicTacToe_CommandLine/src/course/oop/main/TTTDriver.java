@@ -1,9 +1,13 @@
 package course.oop.main;
 
 import course.oop.controller.*;
+import course.oop.util.Timer;
+
 import java.util.Scanner;
 
 public class TTTDriver {
+	
+	static Thread t = new Thread();
 
 	public static void main(String[] args) {
 		
@@ -35,10 +39,22 @@ public class TTTDriver {
 		}
 		
 		int numP = 2;
+		int t = 10;
 		//prompts user to enter the number of players 
 		while (true) {
 			System.out.print("Please, enter the number of players: ");
-			numP =  sc.nextInt();
+			try {
+				numP =  sc.nextInt();
+				System.out.print("Please, enter the timeout: ");
+				t = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("Invalid Input. Try again");
+				System.out.println();
+				sc.next();
+				continue;
+			}
+		
+			
 			if (numP == 1 || numP == 2) {
 				break;
 			} else {
@@ -50,7 +66,7 @@ public class TTTDriver {
 		
 
 		//starts the game
-		game.startNewGame(numP, 0);
+		game.startNewGame(numP, t);
 		
 		//creates the number of human players necessary
 		for (int i = 1; i <= numP; i++) {
@@ -69,6 +85,7 @@ public class TTTDriver {
 			System.out.println("\nThe computer will be using this symbol --> $");
 		}
 		
+
 		//loop with 9 iterations for the maximum number of turns
 		for (int i = 0; i < 9; i++) {
 			
@@ -85,15 +102,22 @@ public class TTTDriver {
 				continue;
 			}
 			
+
 			
 			//display board 
 			int row = 0, col = 0;
-			System.out.println("--------------------------------------------------");
+			System.out.println();
 			System.out.println(game.getGameDisplay());
 			System.out.print("Your turn " + game.getPlayer(turn).getUsername() + "! \n\nEnter row number of mark (starting at 0): ");
-			try {	
-				//get user input for row number
+			try {			
+				game.startTime();
+				
+				//get user input for row number			
 				idk = sc.next();
+				
+				game.endTime();
+				
+				
 				//check if user wants to quit game
 				if(idk.equalsIgnoreCase("quit")) {
 					System.out.println("Thank you for playing! ");
@@ -104,8 +128,12 @@ public class TTTDriver {
 				System.out.println();
 				System.out.print("Enter column number of mark (starting at 0): ");
 				
+				game.startTime();
+				
 				//get user input for col number
 				idk = sc.next();
+				
+				game.endTime();
 				
 				//check if user wants to quit game
 				if(idk.equalsIgnoreCase("quit")) {

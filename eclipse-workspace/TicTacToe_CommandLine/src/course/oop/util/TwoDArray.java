@@ -72,37 +72,24 @@ public class TwoDArray {
 	}
 	
 	public String getArrayDisplay() {
-		/*TODO - Create a 2D display of the Array
-		 * e.g. 
-		 * 	1	0	1
-		 *  0	1	0
-		 *  0	1	1
-		 * 
-		 */
+
 		StringBuilder str = new StringBuilder();
 		
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				str.append(arr[i][j] + "\t");
+				if(j!=2)
+					str.append(arr[i][j] + "\t|\t");
+				else
+					str.append(arr[i][j]);
 			}
-			str.append("\n");
+			if(i!= 2)
+				str.append("\n-----------------------------------\n");
 		}
-		
+		str.append("\n");
 		return str.toString();
 	}
 	
 	public String getArrayDetails() {
-		/*TODO - List the following:
-		 * # rows
-		 * # columns
-		 * How many unique values (in the above example, this would be 2
-		 * Value and count of each (e.g. 
-		 * 			value:1 count:5
-		 * 			value:0 count:4
-		 * 
-		 * 			)
-		 * 
-		 */
 		
 		StringBuilder str = new StringBuilder();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();

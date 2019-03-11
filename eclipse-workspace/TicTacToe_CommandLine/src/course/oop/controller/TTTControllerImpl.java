@@ -1,7 +1,10 @@
 package course.oop.controller;
 
 import course.oop.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Random;
+
 
 public class TTTControllerImpl implements TTTControllerInterface {
 	
@@ -12,6 +15,9 @@ public class TTTControllerImpl implements TTTControllerInterface {
 	int numPlayers;
 	int timeout;
 	int moveCount;
+	Timer timer;
+	TimerTask task;
+	
 	
 	public Player getPlayer(int num) {
 		if (num ==1)
@@ -19,16 +25,35 @@ public class TTTControllerImpl implements TTTControllerInterface {
 		else 
 			return p2;
 	}
+	
 
 	@Override
 	public void startNewGame(int numPlayers, int timeoutInSecs) {
 		
-		this.board = new TwoDArray(3, 3, "_");
+		this.board = new TwoDArray(3, 3, " ");
 		this.numPlayers = numPlayers;
 		this.timeout = timeoutInSecs;   //NEED TO DO THIS
 		this.playerCount = 0;
 		this.moveCount = 0;
-		
+		this.timer = new Timer();
+	
+	}
+	
+	public void startTime() {
+		this.task = new TimerTask() {
+	        int n = 0;
+	        @Override
+	        public void run() {
+	            System.out.println("\nYou ran out of time!");
+	            System.out.println("Terminating game, thank you for playing!");
+	            System.exit(0);
+	        }
+	    };
+		this.timer.schedule(task, 1000  * this.timeout);
+	}
+	
+	public void endTime() {
+		this.task.cancel();
 	}
 
 	@Override
