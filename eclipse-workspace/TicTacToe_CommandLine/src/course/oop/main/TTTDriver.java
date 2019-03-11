@@ -1,7 +1,7 @@
 package course.oop.main;
 
 import course.oop.controller.*;
-import course.oop.util.Timer;
+
 
 import java.util.Scanner;
 
@@ -108,14 +108,14 @@ public class TTTDriver {
 			int row = 0, col = 0;
 			System.out.println();
 			System.out.println(game.getGameDisplay());
-			System.out.print("Your turn " + game.getPlayer(turn).getUsername() + "! \n\nEnter row number of mark (starting at 0): ");
+			System.out.print("Your turn " + game.getPlayer(turn).getUsername() + "! \nHurry up! You have " + t + " seconds!\n\nEnter row number of mark (starting at 0): ");
 			try {			
 				game.startTime();
 				
 				//get user input for row number			
 				idk = sc.next();
 				
-				game.endTime();
+				
 				
 				
 				//check if user wants to quit game
@@ -128,12 +128,9 @@ public class TTTDriver {
 				System.out.println();
 				System.out.print("Enter column number of mark (starting at 0): ");
 				
-				game.startTime();
-				
 				//get user input for col number
 				idk = sc.next();
 				
-				game.endTime();
 				
 				//check if user wants to quit game
 				if(idk.equalsIgnoreCase("quit")) {
@@ -141,7 +138,9 @@ public class TTTDriver {
 					System.exit(0);	
 				}
 				col = Integer.parseInt(idk);  //cast string to int
-			
+				
+				
+				game.endTime();
 				//make selection, if it not valid, then repeat iteration
 				if (!game.setSelection(row, col, game.getPlayer(turn).getPlayerNum())) {
 					System.out.println();
